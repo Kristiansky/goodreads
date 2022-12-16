@@ -2,6 +2,11 @@ import { useState } from 'react'
 import {BsEyeFill, BsEyeSlashFill} from "react-icons/bs";
 import { Link } from 'react-router-dom'
 import OAuth from '../components/OAuth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {db} from '../firebase'
+import {serverTimestamp, setDoc, doc} from 'firebase/firestore'
+import { useNavigate } from 'react-router'
+import { toast } from 'react-toastify'
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -10,6 +15,7 @@ const SignUp = () => {
     email: "",
     password: ""
   })
+  const navigate = useNavigate()
   
   function changeField(e){
     setFormData((prevState => ({
@@ -18,8 +24,22 @@ const SignUp = () => {
     })))
   }
   
-  function submitForm(e){
+  async function submitForm(e){
     e.preventDefault()
+    try{
+      const auth = getAuth();
+      const userCredentials = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      await updateProfile(auth.currentUser, {displayName: formData.name})
+      const user = userCredentials.user
+      const formDataCopy = {...formData}
+      delete formDataCopy.password
+      formDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, 'users', user.uid), formDataCopy);
+      toast.success('Sign Up successful!')
+      navigate('/')
+    }catch (error) {
+      toast.error(error.message)
+    }
   }
   
   return (
