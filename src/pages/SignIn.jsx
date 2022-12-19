@@ -28,6 +28,7 @@ const SignIn = () => {
       const userCredentials = await signInWithEmailAndPassword(auth, formData.email, formData.password)
       if(userCredentials.user){
         navigate("/")
+        toast.success('Logged in')
       }
     }catch (e){
       toast.error(e.message)
@@ -66,10 +67,10 @@ const SignIn = () => {
               )}
             </div>
             <button type="submit" className="w-full bg-[#382110] text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-[#58371F] transition ease-in-out duration-50 active:bg-[#1A0F07]">Sign In</button>
-            <div className="my-4 flex items-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
-              <p className="text-center font-semibold mx-4">OR</p>
-            </div>
           </form>
+          <div className="my-4 flex items-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
+            <p className="text-center font-semibold mx-4">OR</p>
+          </div>
           <OAuth />
           <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mt-4">
             <p className="mb-6">Not a member?

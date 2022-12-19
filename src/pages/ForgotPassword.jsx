@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import OAuth from '../components/OAuth'
+import { toast } from 'react-toastify'
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("")
@@ -9,8 +11,15 @@ const ForgotPassword = () => {
     setEmail(e.target.value)
   }
   
-  function submitForm(e){
+  async function submitForm(e){
     e.preventDefault()
+    try{
+      const auth = getAuth()
+      await sendPasswordResetEmail(auth, email)
+      toast.success("Email was sent")
+    }catch (e) {
+      toast.error(e.message)
+    }
   }
   
   return (
@@ -30,19 +39,19 @@ const ForgotPassword = () => {
               onChange={changeField}
               placeholder="Email address"/>
             <button type="submit" className="w-full bg-[#382110] text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-[#58371F] transition ease-in-out duration-50 active:bg-[#1A0F07]">Send reset password</button>
-            <div className="my-4 flex items-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
-              <p className="text-center font-semibold mx-4">OR</p>
-            </div>
-            <OAuth />
-            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
-              <p className="mb-6">Not a member?
-                <Link to="/sign-up" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign Up</Link>
-              </p>
-              <p>
-                <Link to="/sign-in" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign In</Link>
-              </p>
-            </div>
           </form>
+          <div className="my-4 flex items-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
+            <p className="text-center font-semibold mx-4">OR</p>
+          </div>
+          <OAuth />
+          <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mt-4">
+            <p className="mb-6">Not a member?
+              <Link to="/sign-up" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign Up</Link>
+            </p>
+            <p>
+              <Link to="/sign-in" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign In</Link>
+            </p>
+          </div>
         </div>
       </div>
     </section>

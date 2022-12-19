@@ -6,7 +6,7 @@ import { db } from '../firebase'
 import { useNavigate } from 'react-router'
 
 const OAuth = () => {
-  useNavigate()
+  const navigate = useNavigate();
   async function googleSignUp(){
     try{
       const auth = getAuth();
@@ -26,6 +26,8 @@ const OAuth = () => {
           timestamp: serverTimestamp()
         })
       }
+      navigate('/')
+      toast.success('Logged in')
     }catch (e){
       toast.error(e.message)
     }

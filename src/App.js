@@ -13,8 +13,11 @@ import SignUp from './pages/SignUp'
 import ForgotPassword from './pages/ForgotPassword'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Profile from './pages/Profile'
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
+  
   return (
     <>
       <BrowserRouter>
@@ -31,6 +34,9 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />}/>
           <Route path="/forgot-password" element={<ForgotPassword />}/>
+          <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />}/>
+          </Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer
