@@ -2,6 +2,9 @@ import { useState } from 'react'
 import {BsEyeFill, BsEyeSlashFill} from "react-icons/bs";
 import { Link } from 'react-router-dom'
 import OAuth from '../components/OAuth'
+import {signInWithEmailAndPassword, getAuth} from 'firebase/auth'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -9,6 +12,7 @@ const SignIn = () => {
     email: "",
     password: ""
   })
+  const navigate = useNavigate()
   
   function changeField(e){
     setFormData((prevState => ({
@@ -17,8 +21,17 @@ const SignIn = () => {
     })))
   }
   
-  function submitForm(e){
+  async function submitForm(e){
     e.preventDefault()
+    try{
+      const auth = getAuth()
+      const userCredentials = await signInWithEmailAndPassword(auth, formData.email, formData.password)
+      if(userCredentials.user){
+        navigate("/")
+      }
+    }catch (e){
+      toast.error(e.message)
+    }
   }
   
   return (
@@ -56,16 +69,16 @@ const SignIn = () => {
             <div className="my-4 flex items-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
               <p className="text-center font-semibold mx-4">OR</p>
             </div>
-            <OAuth />
-            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
-              <p className="mb-6">Not a member?
-                <Link to="/sign-up" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign Up</Link>
-              </p>
-              <p>
-                <Link to="/forgot-password" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Forgot password?</Link>
-              </p>
-            </div>
           </form>
+          <OAuth />
+          <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mt-4">
+            <p className="mb-6">Not a member?
+              <Link to="/sign-up" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign Up</Link>
+            </p>
+            <p>
+              <Link to="/forgot-password" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Forgot password?</Link>
+            </p>
+          </div>
         </div>
       </div>
     </section>

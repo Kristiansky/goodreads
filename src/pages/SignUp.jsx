@@ -85,16 +85,16 @@ const SignUp = () => {
             <div className="my-4 flex items-center before:flex-1 before:border-t before:border-gray-300 after:flex-1 after:border-t after:border-gray-300">
               <p className="text-center font-semibold mx-4">OR</p>
             </div>
-            <OAuth />
-            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg">
-              <p className="mb-6">Already a member?
-                <Link to="/sign-in" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign In</Link>
-              </p>
-              <p>
-                <Link to="/forgot-password" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Forgot password?</Link>
-              </p>
-            </div>
           </form>
+          <OAuth />
+          <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mt-4">
+            <p className="mb-6">Already a member?
+              <Link to="/sign-in" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Sign In</Link>
+            </p>
+            <p>
+              <Link to="/forgot-password" className="font-semibold text-[#1e1915] hover:underline transition ease-in-out duration-200 ml-1">Forgot password?</Link>
+            </p>
+          </div>
         </div>
       </div>
     </section>
