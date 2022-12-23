@@ -13,7 +13,8 @@ const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    accountType: "user"
   })
   const navigate = useNavigate()
   
@@ -80,6 +81,15 @@ const SignUp = () => {
               ): (
                 <BsEyeSlashFill className="absolute right-3 top-10 text-xl cursor-pointer" onClick={()=>setShowPassword(prevState => !prevState)}/>
               )}
+            </div>
+            <div className="w-full">
+              <label className="text-lg" htmlFor="account-type">Account type</label>
+              <div className="relative">
+                <select className="p-2 w-full bg-white border border-gray-300 text-gray-700 rounded text-xl mb-3" id="accountType" onChange={changeField}>
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
             </div>
             <button type="submit" className="w-full bg-[#382110] text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-[#58371F] transition ease-in-out duration-50 active:bg-[#1A0F07]">Sign Up</button>
           </form>

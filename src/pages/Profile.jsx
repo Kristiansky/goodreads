@@ -3,9 +3,11 @@ import { getAuth, updateProfile } from 'firebase/auth'
 import { toast } from 'react-toastify'
 import { db } from '../firebase'
 import { doc, updateDoc } from 'firebase/firestore'
+import useIsAdmin from '../Hooks/useIsAdmin'
 
 const Profile = () => {
   const auth = getAuth()
+  const {isAdmin} = useIsAdmin()
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email
@@ -47,7 +49,8 @@ const Profile = () => {
           <div className="col-span-5">
             <h1 className="font-semibold">Profile</h1>
             <div className="my-2 flex items-center before:flex-1 before:border-t before:border-gray-300">&nbsp;</div>
-            <p>Details: Displayname[email@email.com]</p>
+            <p>Name: {auth.currentUser.displayName}</p>
+            <p>Role: {isAdmin ? 'Admin' : 'User'}</p>
             <p>Member since: time since</p>
             <div className="mt-3 px-6 py-12 max-w-xl border border-[#d0d0c8] bg-white rounded-md drop-shadow-sm hover:drop-shadow-lg transition ease-in-out duration-100">
               <form onSubmit={submitForm}>

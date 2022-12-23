@@ -15,6 +15,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
+import AddBook from './pages/AddBook'
+import PrivateRouteAdmin from './components/PrivateRouteAdmin'
+import Book from './pages/Book'
 
 function App() {
   
@@ -37,6 +40,10 @@ function App() {
           <Route path="/profile" element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />}/>
           </Route>
+          <Route path="/add-book" element={<PrivateRouteAdmin />}>
+            <Route path="/add-book" element={<AddBook />}/>
+          </Route>
+          <Route path="/book/:bookId" element={<Book />}/>
         </Routes>
       </BrowserRouter>
       <ToastContainer

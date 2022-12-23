@@ -4,9 +4,10 @@ import { Fragment, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import useIsAdmin from '../Hooks/useIsAdmin'
 
 const Header = () => {
-  
+  const {isAdmin} = useIsAdmin()
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const auth = getAuth()
@@ -177,11 +178,13 @@ const Header = () => {
                             Your Profile
                           </a>
                         </Menu.Item>
-                        <Menu.Item>
-                          <a href="/settings" className={classNames(pathMatchRoute('/settings') && 'bg-gray-100', 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100')}>
-                            Settings
-                          </a>
-                        </Menu.Item>
+                        {isAdmin &&
+                          <Menu.Item>
+                            <a href="/add-book" className={classNames(pathMatchRoute('/add-book') && 'bg-gray-100', 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100')}>
+                              Add a book
+                            </a>
+                          </Menu.Item>
+                        }
                         <Menu.Item>
                           <p onClick={signOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
                             Sign out
