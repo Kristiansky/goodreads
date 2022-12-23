@@ -90,7 +90,7 @@ const AddBook = () => {
     const imgUrls = await Promise.all(
       [...formData.images].map((image) => storeImage(image))
     ).catch((error) => {
-      toast.error("Images not uploaded")
+      toast.error(error.message)
       return;
     })
   

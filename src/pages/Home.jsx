@@ -7,13 +7,14 @@ import Spinner from '../components/Spinner'
 const Home = () => {
   const [books, setBooks] = useState(null)
   const [loading, setLoading] = useState(true)
+  
   useEffect(()=>{
     async function fetchBooks(){
       try{
         // get reference
         const bookRef = collection(db, "books")
         //create the query
-        const q = query(bookRef, null, orderBy("timestamp", "desc"), limit(9))
+        const q = query(bookRef, orderBy("timestamp", "desc"), limit(9))
         // execute the query
         const docSnap = await getDocs(q)
         const books = [];

@@ -1,4 +1,3 @@
-
 import { Outlet, Navigate } from 'react-router'
 import useAuthStatus from '../Hooks/useAuthStatus'
 
