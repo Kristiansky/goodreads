@@ -7,7 +7,7 @@ import {addDoc, collection, serverTimestamp} from "firebase/firestore";
 import {db} from "../firebase"
 import { useNavigate } from 'react-router'
 
-const AddBook = () => {
+const AddBook = (props) => {
   const navigate = useNavigate()
   const auth = getAuth()
   
@@ -120,18 +120,9 @@ const AddBook = () => {
         <input type="text" id="author" value={formData.author} onChange={changeField} placeholder="Book Author" maxLength="255" minLength="2" required className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out duration-150 focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"/>
         <p className="text-lg font-semibold">Genre</p>
         <select className="p-2 w-full bg-white border border-gray-300 text-gray-700 rounded text-xl mb-3" id="genre" onChange={changeField}>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-          <option value="Science">Science</option>
-          <option value="Education">Education</option>
-          <option value="Biography">Biography</option>
-          <option value="Business">Business</option>
-          <option value="Classics">Classics</option>
-          <option value="Comics">Comics</option>
-          <option value="Contemporary">Contemporary</option>
-          <option value="Cookbooks">Cookbooks</option>
-          <option value="Crime">Crime</option>
-          <option value="Ebooks">Ebooks</option>
+          {props.categories.map((category)=>(
+            <option value={category.title}>{category.title}</option>
+          ))}
         </select>
         <div className="mb-6">
           <p className="text-lg font-semibold">Image</p>

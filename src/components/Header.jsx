@@ -82,7 +82,7 @@ const Header = () => {
   }
   
   return (
-    <nav className="bg-[#f4f1ea] w-full min-h-[50px] fixed">
+    <nav className="bg-[#f4f1ea] w-full min-h-[50px] fixed z-[10]">
       <div className="max-w-7xl mx-auto h-[50px]">
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start h-[50px]">
           <div className="flex flex-shrink-0 items-center">

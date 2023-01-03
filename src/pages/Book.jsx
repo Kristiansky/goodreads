@@ -58,13 +58,10 @@ const Book = () => {
     if (loggedIn) {
       if(!isFav){
         try{
-          console.log(auth.currentUser.uid)
-          console.log(params.bookId)
           const docRef = await addDoc(collection(db, "favBooks"), {
             uid: auth.currentUser.uid,
             bookId: params.bookId
           })
-          console.log(docRef)
           setIsFav(true)
           toast.success("Successfully added in favourites.")
         }catch (e) {

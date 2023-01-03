@@ -6,6 +6,10 @@ const BookItem = (props) => {
       <Link className="contents" to={`/book/${props.id}`}>
         <div className="h-[225px] w-[150px] bg-cover" style={{backgroundImage: `url(${props.book.imgUrls[0]})`}}>
         </div>
+        <div>
+          <p className="text-md line-clamp-2 font-semibold">{props.book.name}</p>
+          <p className="text-sm italic">{props.book.author}</p>
+        </div>
       </Link>
     </div>
   )
